@@ -424,9 +424,9 @@ public struct ObjCIR {
                 // skip macro in impl
                 return []
             case .imports(let classNames, let myName, _):
-                return [classNames.union(Set([myName]))
+                let strippedClassNames = Set(classNames.map { $0.trimmingCharacters(in: .whitespaces) })
+                return [strippedClassNames.union(Set([myName.trimmingCharacters(in: .whitespaces)]))
                     .sorted()
-                    .map { $0.trimmingCharacters(in: .whitespaces) }
                     .map { ObjCIR.fileImportStmt($0, headerPrefix: params[GenerationParameterType.headerPrefix]) }
                     .joined(separator: "\n")]
             case .classDecl(name: let className, extends: _, methods: let methods, properties: _, protocols: let protocols):

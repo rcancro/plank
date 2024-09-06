@@ -188,4 +188,12 @@ class ObjectiveCIRTests: XCTestCase {
         XCTAssertEqual("#import \"include/ModelClass.h\"", ObjCIR.fileImportStmt("ModelClass", headerPrefix: "include/"))
         XCTAssertEqual("#import \"ModelClass.h\"", ObjCIR.fileImportStmt("ModelClass", headerPrefix: nil))
     }
+    
+    func testImportsImplementationWithTrailingSpace() {
+        let imports = ObjCIR.Root.imports(classNames: Set(["MyClass "]), myName: "MyClass", parentName: nil)
+        let output = imports.renderImplementation(GenerationParameters())
+        XCTAssertEqual(1, output.count)
+        XCTAssertEqual("#import \"MyClass.h\"", output[0])
+
+    }
 }
