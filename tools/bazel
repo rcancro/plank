@@ -16,7 +16,7 @@ limitations under the License.
 """
 
 from contextlib import closing
-from distutils.version import LooseVersion
+from looseversion import LooseVersion
 import json
 import os.path
 import platform

@@ -11,7 +11,7 @@ import Foundation
 extension ObjCModelRenderer {
     func renderInitWithCoder() -> ObjCIR.Method {
         return ObjCIR.method("- (instancetype)initWithCoder:(NSCoder *)aDecoder") {
-            [
+            let body: [String] = [
                 self.isBaseClass ? ObjCIR.ifStmt("!(self = [super init])") { ["return self;"] } :
                     "if (!(self = [super initWithCoder:aDecoder])) { return self; }",
                 self.properties.filter { (_, schema) -> Bool in
@@ -35,6 +35,7 @@ extension ObjCModelRenderer {
                     },
                     "return self;",
                 ]
+            return body
         }
     }
 

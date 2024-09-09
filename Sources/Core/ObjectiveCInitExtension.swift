@@ -272,7 +272,7 @@ extension ObjCModelRenderer {
                         }
 
                     case .boolean:
-                        return ObjCIR.ifStmt("[\(rawObjectName) isKindOfClass:[NSNumber class]] && strcmp([\(rawObjectName) objCType], @encode(BOOL)) == 0") {
+                        return ObjCIR.ifStmt("[\(rawObjectName) isKindOfClass:[NSNumber class]] && strcmp([\(rawObjectName) objCType], [[NSNumber numberWithBool:0] objCType]) == 0") {
                             transformToADTInit(renderPropertyInit(propertyToAssign, rawObjectName, keyPath: keyPath, schema: schema, firstName: firstName, counter: counter, dirtyPropertyName: dirtyPropertyName, needsTypeCheck: false))
                         }
                     case .array(itemType: _):
